@@ -27,7 +27,7 @@ public class Chessboard extends JComponent {
     private ChessColor currentColor;
     private final ClickController clickController;
     private final int CHESS_SIZE;
-    private JLabel ColorLabel;
+    private JLabel ColorLabel=new JLabel();
     public JLabel label;
     public int FileSource;
 
@@ -77,6 +77,7 @@ public class Chessboard extends JComponent {
             this.initPawnOnBoard(6, i, ChessColor.BLACK);
 
         }
+
     }
 
     public ChessComponent[][] getChessComponents() {
@@ -132,6 +133,7 @@ public class Chessboard extends JComponent {
     }
 
     public void initiateEmptyChessboard() {
+
         for (int i = 0; i < this.chessComponents.length; ++i) {
             for (int j = 0; j < this.chessComponents[i].length; ++j) {
                 this.putChessOnBoard(new EmptySlotComponent(new ChessboardPoint(i, j), this.calculatePoint(i, j), this.clickController, this.CHESS_SIZE));
@@ -140,10 +142,11 @@ public class Chessboard extends JComponent {
 
     }
 
-    public void swapColor() {
+    public void swapColor() throws IOException {
         this.currentColor = this.currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
         String str = this.currentColor == ChessColor.WHITE ? "Round: White" : "Round: Black";
         ColorLabel.setText(str);
+        this.outputChessBoard(this);
 //        if(whiteKingIsCheckmated(getChessComponents())){
 //            label.setText("white is chessmated!");
 //        }
@@ -244,15 +247,15 @@ public class Chessboard extends JComponent {
         }
     }
 
-    public void LoadChessBoard(String str) {
-        StringBuilder sb=new StringBuilder(str);
-        String currentChessBoard=sb.substring(sb.length()-65,sb.length());
-        StringBuilder sb2=new StringBuilder(currentChessBoard);
+    public void LoadChessBoard(List<String> str,int Steps) {
+        StringBuilder sb=new StringBuilder(str.get(str.size()-1-Steps));
+  //      String currentChessBoard=sb.substring(sb.length()-65,sb.length());
+  //      StringBuilder sb2=new StringBuilder(currentChessBoard);
         List<String>chessboard=new ArrayList<>(8);
         for (int i = 0; i < 8; i++) {
-            chessboard.add(sb2.substring(8*i,8+8*i));
+            chessboard.add(sb.substring(8*i,8+8*i));
         }
-        chessboard.add(sb2.substring(sb2.length()-1,sb2.length()));
+        chessboard.add(sb.substring(sb.length()-1,sb.length()));
 
         this.initiateEmptyChessboard();
         for (int i = 0; i < 8; i++) {
@@ -306,6 +309,12 @@ public class Chessboard extends JComponent {
             }
         }
         currentColor = chessboard.get(8).charAt(0) == 'w' ? ChessColor.WHITE : ChessColor.BLACK;
+        this.ColorLabel.setText("Round: Whit");
+//        String color=currentColor==ChessColor.WHITE?"Round: White":"Round: Black";
+//        JLabel p=new JLabel();
+//        p.setText(color);
+//        setColorLabel(p);
+//        ColorLabel.repaint();
     }
 
 
@@ -354,19 +363,46 @@ public class Chessboard extends JComponent {
                     Final = Final + "p";
                 }
             }
-            Final = Final + "\n";
-
         }
         String str = getCurrentColor() == ChessColor.WHITE ? "w" : "b";
-        Final = Final + str;
+        Final = Final + str+"\n";
 
-        File f = new File("D:\\Chessww\\hhh.txt");//指定文件
-        FileOutputStream fos = new FileOutputStream(f);//创建输出流fos并以f为参数
-        OutputStreamWriter osw = new OutputStreamWriter(fos);//创建字符输出流对象osw并以fos为参数
-        BufferedWriter bw = new BufferedWriter(osw);//创建一个带缓冲的输出流对象bw，并以osw为参数
-        bw.write(Final);//使用bw写入一行文字，为字符串形式String
-        bw.newLine();//换行
-        bw.close();
+//        File f = new File("D:\\Chessww\\hhh.txt");//指定文件
+//        FileOutputStream fos = new FileOutputStream(f);//创建输出流fos并以f为参数
+//        OutputStreamWriter osw = new OutputStreamWriter(fos);//创建字符输出流对象osw并以fos为参数
+//        BufferedWriter bw = new BufferedWriter(osw);//创建一个带缓冲的输出流对象bw，并以osw为参数
+//        bw.write(Final);//使用bw写入一行文字，为字符串形式String
+//        bw.newLine();//换行
+//        bw.close();
+        File F=new File("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard2\\JumpBoard2.txt");//指定文件
+        FileInputStream fis=new FileInputStream(F);//创建输入流fis并以f为参数
+        InputStreamReader isr=new InputStreamReader(fis);//创建字符输入流对象isr并以fis为参数
+        BufferedReader br=new BufferedReader(isr);//创建一个带缓冲的输入流对象br，并以isr为参数
+        String result=br.readLine();//使用bufferedreader读取一行文字并将读取值赋给字符串result。每执行一次br.readLine();,就会往下读取一行。
+        System.out.println(result);
+        //获取本次new game的txt地址（result）
+
+
+
+        FileOutputStream o = null;
+        String path="";
+        String filename="";
+        byte[] buff = new byte[]{};
+        try{
+            File file = new File(result);
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            buff=Final.getBytes();
+            o=new FileOutputStream(file,true);
+            o.write(buff);
+            o.flush();
+            o.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void loadGame(List<String> chessData) {

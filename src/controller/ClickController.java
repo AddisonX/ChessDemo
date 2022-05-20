@@ -9,6 +9,7 @@ import view.Chessboard;
 import view.ChessboardPoint;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ClickController {
         this.chessboard = chessboard;
     }
 
-    public void onClick(ChessComponent chessComponent) {
+    public void onClick(ChessComponent chessComponent) throws IOException {
 
         List<ChessboardPoint> points = chessComponent.getPointsCanMoveTo(chessboard.getChessComponents());
         ArrayList<ChessComponent> chessComponents = new ArrayList<>();

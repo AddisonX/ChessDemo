@@ -6,6 +6,9 @@ import model.ChessColor;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -13,7 +16,7 @@ import java.io.*;
 public class ChessGameFrame extends JFrame {
     //    public final Dimension FRAME_SIZE ;
     static JFrame fatherFrame;
-
+//private JFrame frame=new JFrame();
     private final int WIDTH;
     private final int HEIGTH;
     public final int CHESSBOARD_SIZE;
@@ -55,14 +58,21 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中添加棋盘
      */
     private void addChessboard() throws IOException {
+
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
-        File F=new File("D:\\Chessww\\hhh.txt");//指定文件
-//        FileInputStream fis=new FileInputStream(F);//创建输入流fis并以f为参数
-//        InputStreamReader isr=new InputStreamReader(fis);//创建字符输入流对象isr并以fis为参数
-//        BufferedReader br=new BufferedReader(isr);//创建一个带缓冲的输入流对象br，并以isr为参数
-//        String result=br.readLine();//使用bufferedreader读取一行文字并将读取值赋给字符串result。每执行一次br.readLine();,就会往下读取一行。
-//        chessboard.LoadChessBoard(result);
-//        chessboard.repaint();
+        if(InputListener.count==0){
+        chessboard.outputChessBoard(chessboard);}
+        if (InputListener.count==1) {
+//            File F = new File("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt");//指定文件
+//            FileInputStream fis = new FileInputStream(F);//创建输入流fis并以f为参数
+//            InputStreamReader isr = new InputStreamReader(fis);//创建字符输入流对象isr并以fis为参数
+//            BufferedReader br = new BufferedReader(isr);//创建一个带缓冲的输入流对象br，并以isr为参数
+//            String result = br.readLine();//使用bufferedreader读取一行文字并将2读取值赋给字符串result。每执行一次br.readLine();,就会往下读取一行。
+            List<String> results = Files.readAllLines(Paths.get("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt"));
+
+            chessboard.LoadChessBoard(results,1);
+            chessboard.repaint();
+        }
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
         add(chessboard);
@@ -91,6 +101,18 @@ public class ChessGameFrame extends JFrame {
         add(button);
         button.addActionListener(new ResetButtonListener(chessboard));
 
+        JButton backbutton=new JButton("Back to menu");
+        backbutton.setLocation(HEIGTH,HEIGTH/10+400);
+        backbutton.setSize(200,60);
+        backbutton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(backbutton);
+
+        JButton takeBakeMovesbutton=new JButton("Take back a move");
+        takeBakeMovesbutton.setLocation(HEIGTH,HEIGTH/10+460);
+        takeBakeMovesbutton.setSize(200,60);
+        takeBakeMovesbutton.setFont(new Font("Rockwell",Font.BOLD,20));
+        add(takeBakeMovesbutton);
+        takeBakeMovesbutton.addActionListener(new TakeBackMoveListener(chessboard));
 
 //        JButton InputButton=new JButton("Input ChessBoard");
 //        InputButton.setLocation((HEIGTH,HEIGTH/10+460);
