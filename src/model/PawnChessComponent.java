@@ -15,6 +15,15 @@ public class PawnChessComponent extends ChessComponent {
     private static Image KING_WHITE;
     private static Image KING_BLACK;
     private Image kingImage;
+    private boolean EnPassant;
+
+    public boolean isEnPassant() {
+        return EnPassant;
+    }
+
+    public void setEnPassant(boolean enPassant) {
+        EnPassant = enPassant;
+    }
 //    public int first;
 
     public void loadResource() throws IOException {
@@ -49,9 +58,9 @@ public class PawnChessComponent extends ChessComponent {
 
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if(getChessColor() == ChessColor.WHITE){
-            if(source.getX()==1&&
-                     source.getY()==destination.getY()
+        if(getChessColor() == ChessColor.BLACK){
+            if(source.getX()==1&&  //第一步
+                    source.getY()==destination.getY()
                     && destination.getX()>source.getX()
                     && destination.getX()-source.getX()<=2
                     && chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.NONE
@@ -62,12 +71,16 @@ public class PawnChessComponent extends ChessComponent {
                     && destination.getX()-source.getX()<=1
                     && chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.NONE){
                 return true;
-            }else return chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.BLACK
+            }else return (chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.WHITE
+                    ||
+                    (chessComponents[source.getX()][destination.getY()] instanceof PawnChessComponent
+                            && ((PawnChessComponent)chessComponents[source.getX()][destination.getY()]).EnPassant )
+            )
                     && destination.getX() > source.getX()
                     && 2 == (source.getX() - destination.getX()) * (source.getX() - destination.getX())
                     + (source.getY() - destination.getY()) * (source.getY() - destination.getY());
-        }else if(getChessColor() == ChessColor.BLACK){ /////////////////////////////////////
-            if(source.getX()==6&&
+        }else if(getChessColor() == ChessColor.WHITE){ /////////////////////////////////////
+            if(source.getX()==6&&  //第一步
                     source.getY()==destination.getY()
                     && destination.getX()<source.getX()
                     && destination.getX()-source.getX()>=-2
@@ -79,13 +92,19 @@ public class PawnChessComponent extends ChessComponent {
                     && destination.getX()-source.getX()>=-1
                     && chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.NONE){
                 return true;
-            }else return chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.WHITE
+            }else return (chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.BLACK
+                    ||
+                    (chessComponents[source.getX()][destination.getY()] instanceof PawnChessComponent
+                            && ((PawnChessComponent)chessComponents[source.getX()][destination.getY()]).EnPassant )
+            )
                     && destination.getX() < source.getX()
                     && 2 == (source.getX() - destination.getX()) * (source.getX() - destination.getX())
                     + (source.getY() - destination.getY()) * (source.getY() - destination.getY());
         }
         return false;
     }
+
+
 
 
 
@@ -103,7 +122,7 @@ public class PawnChessComponent extends ChessComponent {
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
             g.drawImage(this.kingImage, 0, 0, this.getWidth(), this.getHeight(), this);
             g.setColor(Color.BLACK);
-           }
+        }
         if(isAttacked()){// Highlights the model if selected.
             g.setColor(Color.gray);
             g.drawOval(0, 0, getWidth() , getHeight());
