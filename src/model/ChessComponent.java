@@ -47,6 +47,15 @@ public abstract class ChessComponent extends JComponent {
 
 
     private boolean attacked;
+    private boolean Moved = false;
+
+    public boolean getMoved() {
+        return Moved;
+    }
+
+    public void setMoved(boolean moved) {
+        Moved = moved;
+    }
 
     public boolean isAttacked() {
         return attacked;

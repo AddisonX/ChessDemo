@@ -74,6 +74,28 @@ public class ClickController {
                     }
                 }
 
+                //王车易位
+                if (first instanceof KingChessComponent) {
+                    if(chessComponent.getChessboardPoint().getX()==0 && chessComponent.getChessboardPoint().getY()==6){
+                        chessboard.swapChessComponents(chessboard.getChessComponents()[0][7],chessboard.getChessComponents()[0][5]);
+                        chessboard.getChessComponents()[0][7].repaint();
+                        chessboard.getChessComponents()[0][5].repaint();
+                    }else if (chessComponent.getChessboardPoint().getX()==0 && chessComponent.getChessboardPoint().getY()==2){
+                        chessboard.swapChessComponents(chessboard.getChessComponents()[0][0],chessboard.getChessComponents()[0][3]);
+                        chessboard.getChessComponents()[0][0].repaint();
+                        chessboard.getChessComponents()[0][3].repaint();
+                    }else if (chessComponent.getChessboardPoint().getX()==7 && chessComponent.getChessboardPoint().getY()==6){
+                        chessboard.swapChessComponents(chessboard.getChessComponents()[7][7],chessboard.getChessComponents()[7][5]);
+                        chessboard.getChessComponents()[7][7].repaint();
+                        chessboard.getChessComponents()[7][5].repaint();
+                    }else if (chessComponent.getChessboardPoint().getX()==7 && chessComponent.getChessboardPoint().getY()==2){
+                        chessboard.swapChessComponents(chessboard.getChessComponents()[7][0],chessboard.getChessComponents()[7][3]);
+                        chessboard.getChessComponents()[7][0].repaint();
+                        chessboard.getChessComponents()[7][3].repaint();
+                    }
+                }
+
+
                 chessboard.swapChessComponents(first, chessComponent);
                 chessboard.swapColor();//切换当前行棋方
                 for (int i = 0; i < 8; i++) {
@@ -84,6 +106,7 @@ public class ClickController {
                 }
                 first.setSelected(false);
                 first.repaint();
+                first.setMoved(true);
                 first = null;
 
 

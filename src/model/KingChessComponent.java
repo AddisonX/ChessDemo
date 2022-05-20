@@ -52,6 +52,10 @@ public class KingChessComponent extends ChessComponent {
     }
 
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
+        return canMove(chessComponents,destination) || castling(chessComponents,destination);
+    }
+
+    public boolean canMove(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = this.getChessboardPoint();
         if (Math.abs(destination.getX() - source.getX()) == 1 && Math.abs(destination.getY() - source.getY())== 1) {
             return true;
@@ -92,4 +96,98 @@ public class KingChessComponent extends ChessComponent {
 
 
     }
+
+    //判断能否进行王车易位
+    public boolean castling(ChessComponent[][] chessComponents,ChessboardPoint destination){
+        ChessboardPoint source = this.getChessboardPoint();
+        if(//黑王短易位
+                this.chessColor == ChessColor.BLACK && !attackedByWhite(chessComponents, this)
+                && destination.getY() - source.getY() == 2 && destination.getX() == source.getX()
+                && !this.getMoved()
+                && !chessComponents[0][7].getMoved()
+                && !attackedByWhite(chessComponents,chessComponents[0][5])
+                && !attackedByWhite(chessComponents,chessComponents[0][6])
+        ){
+            for (int i = 5; i < 7; i++) {
+                if(!(chessComponents[source.getX()][i] instanceof EmptySlotComponent)){
+                    return false;
+                }
+            }
+            return true;
+
+        }else if(//黑王长易位
+                this.chessColor == ChessColor.BLACK && !attackedByWhite(chessComponents, this)
+                && destination.getY() - source.getY() == -2 && destination.getX() == source.getX()
+                && !this.getMoved()
+                && !chessComponents[0][0].getMoved()
+                && !attackedByWhite(chessComponents,chessComponents[0][3])
+                && !attackedByWhite(chessComponents,chessComponents[0][2])
+        ){
+            for (int i = 1; i < 4; i++) {
+                if(!(chessComponents[source.getX()][i] instanceof EmptySlotComponent)){
+                    return false;
+                }
+            }
+            return true;
+        }else if(//白王短易位
+                this.chessColor == ChessColor.WHITE && !attackedByBlack(chessComponents, this)
+                && destination.getY() - source.getY() == 2 && destination.getX() == source.getX()
+                && !this.getMoved()
+                && !chessComponents[7][7].getMoved()
+                && !attackedByBlack(chessComponents,chessComponents[7][5])
+                && !attackedByBlack(chessComponents,chessComponents[7][6])
+        ){
+            for (int i = 5; i < 7; i++) {
+                if(!(chessComponents[source.getX()][i] instanceof EmptySlotComponent)){
+                    return false;
+                }
+            }
+            return true;
+        }else if(//白王长易位
+                this.chessColor == ChessColor.WHITE && !attackedByBlack(chessComponents, this)
+                        && destination.getY() - source.getY() == -2 && destination.getX() == source.getX()
+                        && !this.getMoved()
+                        && !chessComponents[7][0].getMoved()
+                        && !attackedByBlack(chessComponents,chessComponents[7][3])
+                        && !attackedByBlack(chessComponents,chessComponents[7][2])
+        ){
+            for (int i = 1; i < 4; i++) {
+                if(!(chessComponents[source.getX()][i] instanceof EmptySlotComponent)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    //判断棋子是否被白方攻击
+    public boolean attackedByWhite(ChessComponent[][] chessComponents, ChessComponent chess){
+        for (int i1 = 0; i1 < 8; i1++) {
+            for (int j1 = 0; j1 < 8; j1++) {
+                if (chessComponents[i1][j1].getChessColor()==ChessColor.WHITE && !(chessComponents[i1][j1] instanceof KingChessComponent)
+                        && chessComponents[i1][j1].canMoveTo(chessComponents, chess.getChessboardPoint())){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //判断棋子是否被黑方攻击
+    public boolean attackedByBlack(ChessComponent[][] chessComponents, ChessComponent chess){
+        for (int i1 = 0; i1 < 8; i1++) {
+            for (int j1 = 0; j1 < 8; j1++) {
+                if (chessComponents[i1][j1].getChessColor()==ChessColor.BLACK && !(chessComponents[i1][j1] instanceof KingChessComponent)
+                        && chessComponents[i1][j1].canMoveTo(chessComponents, chess.getChessboardPoint())){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
