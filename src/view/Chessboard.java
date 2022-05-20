@@ -392,7 +392,7 @@ public class Chessboard extends JComponent {
 //        bw.write(Final);//使用bw写入一行文字，为字符串形式String
 //        bw.newLine();//换行
 //        bw.close();
-        File F=new File("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard2\\JumpBoard2.txt");//指定文件
+        File F=new File("JumpBoard2/JumpBoard2.txt");//指定文件
         FileInputStream fis=new FileInputStream(F);//创建输入流fis并以f为参数
         InputStreamReader isr=new InputStreamReader(fis);//创建字符输入流对象isr并以fis为参数
         BufferedReader br=new BufferedReader(isr);//创建一个带缓冲的输入流对象br，并以isr为参数

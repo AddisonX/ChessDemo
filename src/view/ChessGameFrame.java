@@ -68,7 +68,7 @@ public class ChessGameFrame extends JFrame {
 //            InputStreamReader isr = new InputStreamReader(fis);//创建字符输入流对象isr并以fis为参数
 //            BufferedReader br = new BufferedReader(isr);//创建一个带缓冲的输入流对象br，并以isr为参数
 //            String result = br.readLine();//使用bufferedreader读取一行文字并将2读取值赋给字符串result。每执行一次br.readLine();,就会往下读取一行。
-            List<String> results = Files.readAllLines(Paths.get("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt"));
+            List<String> results = Files.readAllLines(Paths.get("JumpBoard/JumpBoard.txt"));
 
             chessboard.LoadChessBoard(results,1);
             chessboard.repaint();

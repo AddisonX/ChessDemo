@@ -49,8 +49,8 @@ class NewGameListener implements ActionListener {
                 loginFrame.setVisible(false); // 隐藏登录窗口，游戏进行中不要关闭程序
                 ChessGameFrame.fatherFrame = loginFrame;
                 ChessGameFrame.main(null);
-         int count=(DirCount("C:\\Users\\DELL\\Desktop\\ChessDemo\\游戏存档"));
-         String pathname="C:\\Users\\DELL\\Desktop\\ChessDemo\\游戏存档\\Game"+(count+1)+".txt";
+         int count=(DirCount("游戏存档"));
+         String pathname="游戏存档\\Game"+(count+1)+".txt";
         File fileX=new File(pathname);
          try {
              fileX.createNewFile();
@@ -58,7 +58,7 @@ class NewGameListener implements ActionListener {
              ex.printStackTrace();
          }
 
-                 File f = new File("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard2\\JumpBoard2.txt");//指定文件
+                 File f = new File("JumpBoard2/JumpBoard2.txt");//指定文件
          FileOutputStream fos = null;//创建输出流fos并以f为参数
          try {
              fos = new FileOutputStream(f);

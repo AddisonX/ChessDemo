@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MainMenus {
     static JFrame fatherFrame;
-    JFileChooser fileChooser  = new JFileChooser("C:\\Users\\DELL\\Desktop\\ChessDemo_1_\\ChessDemo\\游戏存档");
+    JFileChooser fileChooser  = new JFileChooser("游戏存档");
     public static void main(String[] args) {
         JFrame loginFrame = new JFrame("主菜单");
         Chessboard chessboard;

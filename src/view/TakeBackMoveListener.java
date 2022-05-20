@@ -17,7 +17,7 @@ public TakeBackMoveListener(Chessboard chessboard){
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            List<String> results = Files.readAllLines(Paths.get("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt"));
+            List<String> results = Files.readAllLines(Paths.get("JumpBoard/JumpBoard.txt"));
             chessboard.LoadChessBoard(results,2);
             i++;
         } catch (IOException ex) {

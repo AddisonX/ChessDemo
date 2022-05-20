@@ -35,7 +35,7 @@ public class InputListener implements ActionListener {
 
         // Display an open file chooser
 
-        JFileChooser fileChooser = new JFileChooser("C:\\Users\\DELL\\Desktop\\ChessDemo\\游戏存档");
+        JFileChooser fileChooser = new JFileChooser("游戏存档");
 
 
         int returnValue = fileChooser.showOpenDialog(null);
@@ -79,14 +79,14 @@ public class InputListener implements ActionListener {
 
             //上面已经打开选择栏了
             try {
-                List<String> results = Files.readAllLines(Paths.get("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt"));
+                List<String> results = Files.readAllLines(Paths.get("JumpBoard/JumpBoard.txt"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
 //            for()
             CurrentChessBoard = myStr;
-            File f = new File("C:\\Users\\DELL\\Desktop\\ChessDemo\\JumpBoard\\JumpBoard.txt");//指定文件
+            File f = new File("JumpBoard/JumpBoard.txt");//指定文件
 //            FileOutputStream o = null;
 //            String path="";
 //            String filename="";
