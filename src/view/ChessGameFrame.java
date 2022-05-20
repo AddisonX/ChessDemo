@@ -56,7 +56,7 @@ public class ChessGameFrame extends JFrame {
 
     /**
      * 在游戏面板中添加棋盘
-     */
+     *///
     private void addChessboard() throws IOException {
 
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
