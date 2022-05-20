@@ -49,7 +49,7 @@ public class ChessGameFrame extends JFrame {
 //        JLabel Background = new JLabel(icon1);
 //        add(Background);
 //        setVisible(true);
-        addBackgroundImage();
+        addBackgroundImage();//
 
     }
 
