@@ -137,11 +137,11 @@ public class Chessboard extends JComponent {
         }
 
         //兵的底线升变
-        if(chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.WHITE && chess1.getChessboardPoint().getX() == 7){
+        if(chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.WHITE && chess1.getChessboardPoint().getX() == 0){
             this.remove(chess1);
             this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
             chess1.repaint();
-        } else if (chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.BLACK && chess1.getChessboardPoint().getX() == 0){
+        } else if (chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.BLACK && chess1.getChessboardPoint().getX() == 7){
             this.remove(chess1);
             this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
             chess1.repaint();

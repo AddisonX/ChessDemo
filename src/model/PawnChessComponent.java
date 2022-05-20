@@ -71,7 +71,7 @@ public class PawnChessComponent extends ChessComponent {
                     && destination.getX()-source.getX()<=1
                     && chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.NONE){
                 return true;
-            }else return (chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.BLACK
+            }else return (chessComponents[destination.getX()][destination.getY()].getChessColor() == ChessColor.WHITE
                     ||
                     (chessComponents[source.getX()][destination.getY()] instanceof PawnChessComponent
                             && ((PawnChessComponent)chessComponents[source.getX()][destination.getY()]).EnPassant )
