@@ -40,6 +40,10 @@ public class Chessboard extends JComponent {
 
     }
 
+    public int getCHESS_SIZE() {
+        return CHESS_SIZE;
+    }
+
     public Chessboard(int width, int height) {
         this.currentColor = ChessColor.WHITE;
         this.clickController = new ClickController(this);
@@ -48,33 +52,33 @@ public class Chessboard extends JComponent {
         this.CHESS_SIZE = width / 8;
         System.out.printf("chessboard size = %d, chess size = %d\n", width, this.CHESS_SIZE);
         this.initiateEmptyChessboard();
-        this.initRookOnBoard(0, 0, ChessColor.WHITE);
-        this.initRookOnBoard(0, 7, ChessColor.WHITE);
-        this.initRookOnBoard(7, 0, ChessColor.BLACK);
-        this.initRookOnBoard(7, 7, ChessColor.BLACK);
+        this.initRookOnBoard(0, 0, ChessColor.BLACK);
+        this.initRookOnBoard(0, 7, ChessColor.BLACK);
+        this.initRookOnBoard(7, 0, ChessColor.WHITE);
+        this.initRookOnBoard(7, 7, ChessColor.WHITE);
 
 
-        this.initKingOnBoard(0, 4, ChessColor.WHITE);
-        this.initKingOnBoard(7, 4, ChessColor.BLACK);
+        this.initKingOnBoard(0, 4, ChessColor.BLACK);
+        this.initKingOnBoard(7, 4, ChessColor.WHITE);
 
-        this.initKnightOnBoard(0, 6, ChessColor.WHITE);
-        this.initKnightOnBoard(0, 1, ChessColor.WHITE);
-        this.initKnightOnBoard(7, 6, ChessColor.BLACK);
-        this.initKnightOnBoard(7, 1, ChessColor.BLACK);
+        this.initKnightOnBoard(0, 6, ChessColor.BLACK);
+        this.initKnightOnBoard(0, 1, ChessColor.BLACK);
+        this.initKnightOnBoard(7, 6, ChessColor.WHITE);
+        this.initKnightOnBoard(7, 1, ChessColor.WHITE);
 
-        this.initQueenOnBoard(0, 3, ChessColor.WHITE);
-        this.initQueenOnBoard(7, 3, ChessColor.BLACK);
+        this.initQueenOnBoard(0, 3, ChessColor.BLACK);
+        this.initQueenOnBoard(7, 3, ChessColor.WHITE);
 
-        this.initBishopOnBoard(0, 2, ChessColor.WHITE);
-        this.initBishopOnBoard(0, 5, ChessColor.WHITE);
-        this.initBishopOnBoard(7, 2, ChessColor.BLACK);
-        this.initBishopOnBoard(7, 5, ChessColor.BLACK);
+        this.initBishopOnBoard(0, 2, ChessColor.BLACK);
+        this.initBishopOnBoard(0, 5, ChessColor.BLACK);
+        this.initBishopOnBoard(7, 2, ChessColor.WHITE);
+        this.initBishopOnBoard(7, 5, ChessColor.WHITE);
 
         for (int i = 0; i < 8; i++) {
-            this.initPawnOnBoard(1, i, ChessColor.WHITE);
+            this.initPawnOnBoard(1, i, ChessColor.BLACK);
         }
         for (int i = 0; i < 8; i++) {
-            this.initPawnOnBoard(6, i, ChessColor.BLACK);
+            this.initPawnOnBoard(6, i, ChessColor.WHITE);
 
         }
     }
@@ -112,6 +116,8 @@ public class Chessboard extends JComponent {
         this.chessComponents[row2][col2] = (ChessComponent) chess2;
         chess1.repaint();
         ((ChessComponent) chess2).repaint();
+
+
         if (whiteKingIsCheckmated(getChessComponents())) {
             label.setText("white is chessmated!");
         } else if (blackKingIsCheckmated(getChessComponents())) {
@@ -129,6 +135,18 @@ public class Chessboard extends JComponent {
         else if(whiteIsFailed(getChessComponents())&&!whiteIsFailed(getChessComponents())){
             label.setText("Draw");
         }
+
+        //兵的底线升变
+        if(chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.WHITE && chess1.getChessboardPoint().getX() == 7){
+            this.remove(chess1);
+            this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+            chess1.repaint();
+        } else if (chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.BLACK && chess1.getChessboardPoint().getX() == 0){
+            this.remove(chess1);
+            this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+            chess1.repaint();
+        }
+
     }
 
     public void initiateEmptyChessboard() {
@@ -203,33 +221,33 @@ public class Chessboard extends JComponent {
 
 
         this.initiateEmptyChessboard();
-        this.initRookOnBoard(0, 0, ChessColor.WHITE);
-        this.initRookOnBoard(0, 7, ChessColor.WHITE);
-        this.initRookOnBoard(7, 0, ChessColor.BLACK);
-        this.initRookOnBoard(7, 7, ChessColor.BLACK);
+        this.initRookOnBoard(0, 0, ChessColor.BLACK);
+        this.initRookOnBoard(0, 7, ChessColor.BLACK);
+        this.initRookOnBoard(7, 0, ChessColor.WHITE);
+        this.initRookOnBoard(7, 7, ChessColor.WHITE);
 
 
-        this.initKingOnBoard(0, 4, ChessColor.WHITE);
-        this.initKingOnBoard(7, 4, ChessColor.BLACK);
+        this.initKingOnBoard(0, 4, ChessColor.BLACK);
+        this.initKingOnBoard(7, 4, ChessColor.WHITE);
 
-        this.initKnightOnBoard(0, 6, ChessColor.WHITE);
-        this.initKnightOnBoard(0, 1, ChessColor.WHITE);
-        this.initKnightOnBoard(7, 6, ChessColor.BLACK);
-        this.initKnightOnBoard(7, 1, ChessColor.BLACK);
+        this.initKnightOnBoard(0, 6, ChessColor.BLACK);
+        this.initKnightOnBoard(0, 1, ChessColor.BLACK);
+        this.initKnightOnBoard(7, 6, ChessColor.WHITE);
+        this.initKnightOnBoard(7, 1, ChessColor.WHITE);
 
-        this.initQueenOnBoard(0, 3, ChessColor.WHITE);
-        this.initQueenOnBoard(7, 3, ChessColor.BLACK);
+        this.initQueenOnBoard(0, 3, ChessColor.BLACK);
+        this.initQueenOnBoard(7, 3, ChessColor.WHITE);
 
-        this.initBishopOnBoard(0, 2, ChessColor.WHITE);
-        this.initBishopOnBoard(0, 5, ChessColor.WHITE);
-        this.initBishopOnBoard(7, 2, ChessColor.BLACK);
-        this.initBishopOnBoard(7, 5, ChessColor.BLACK);
+        this.initBishopOnBoard(0, 2, ChessColor.BLACK);
+        this.initBishopOnBoard(0, 5, ChessColor.BLACK);
+        this.initBishopOnBoard(7, 2, ChessColor.WHITE);
+        this.initBishopOnBoard(7, 5, ChessColor.WHITE);
 
         for (int i = 0; i < 8; i++) {
-            this.initPawnOnBoard(1, i, ChessColor.WHITE);
+            this.initPawnOnBoard(1, i, ChessColor.BLACK);
         }
         for (int i = 0; i < 8; i++) {
-            this.initPawnOnBoard(6, i, ChessColor.BLACK);
+            this.initPawnOnBoard(6, i, ChessColor.WHITE);
 
         }
 
