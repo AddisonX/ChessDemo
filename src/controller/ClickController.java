@@ -4,6 +4,7 @@ package controller;
 import model.*;
 import view.Chessboard;
 import view.ChessboardPoint;
+import view.MusicPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -133,7 +134,8 @@ public class ClickController {
                 first=chessComponent;
                 first.repaint();
             }
-
+            MusicPlayer musicPlayer=new MusicPlayer("ycxew-tk4v6.wav");
+            musicPlayer.play();
         }
     }
 

@@ -33,9 +33,10 @@ public class MainMenus {
         imagePanel.add(button2);
         button2.addActionListener(new InputListener(loginFrame));
 
-        JButton button3=new JButton("游戏设置");
+        JButton button3=new JButton("重新开始游戏");
         button3.setBounds(175,350,150,50);
         imagePanel.add(button3);
+        button3.addActionListener(new BeginAgainListener());
         loginFrame.setVisible(true);
     }
 }

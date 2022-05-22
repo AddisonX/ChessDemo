@@ -24,9 +24,9 @@ import model.*;
 public class Chessboard extends JComponent {
     private static final int CHESSBOARD_SIZE = 8;
     private final ChessComponent[][] chessComponents = new ChessComponent[8][8];
-    private ChessColor currentColor;
-    private final ClickController clickController;
-    private final int CHESS_SIZE;
+    public ChessColor currentColor;
+    public final ClickController clickController;
+    public final int CHESS_SIZE;
     private JLabel ColorLabel=new JLabel();
     public JLabel label;
     public int FileSource;
@@ -140,12 +140,46 @@ public class Chessboard extends JComponent {
         //兵的底线升变
         if(chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.WHITE && chess1.getChessboardPoint().getX() == 0){
             this.remove(chess1);
-            this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
-            chess1.repaint();
+            Object[] fruits = {"Queen","Rook","Bishop","Knight"};
+            int op = JOptionPane.showOptionDialog(null, "选择升变的棋子", "标题",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, fruits, fruits[0]);
+            System.out.print((String)fruits[op]);
+            switch (op){
+                case 0:
+
+                this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                chess1.repaint();
+                case 1:
+
+                    this.add(chess1 = new RookChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+                case 2:
+
+                    this.add(chess1 = new BishopChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+                case 3:
+
+                    this.add(chess1 = new KnightChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+            }
         } else if (chess1 instanceof PawnChessComponent && chess1.getChessColor()==ChessColor.BLACK && chess1.getChessboardPoint().getX() == 7){
             this.remove(chess1);
-            this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
-            chess1.repaint();
+            Object[] fruits = {"Queen","Rook","Bishop","Knight"};
+            int op = JOptionPane.showOptionDialog(null, "选择升变的棋子", "标题",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, fruits, fruits[0]);
+            System.out.print((String)fruits[op]);
+            switch (op){
+                case 0:
+                    this.add(chess1 = new QueenChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+                case 1:
+                    this.add(chess1 = new RookChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+                case 2:
+                    this.add(chess1 = new BishopChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+                case 3:
+                    this.add(chess1 = new KnightChessComponent(((ChessComponent) chess1).getChessboardPoint(), ((ChessComponent) chess1).getLocation(), chess1.getChessColor(), this.clickController, this.CHESS_SIZE));
+                    chess1.repaint();
+            }
         }
 
     }
@@ -221,8 +255,11 @@ public class Chessboard extends JComponent {
     }
 
     public void ResetChessBoard() {
-
-
+for(int i=0;i<8;i++) {
+    for (int j = 0; j < 8; j++) {
+        this.remove(chessComponents[i][j]);
+    }
+}
         this.initiateEmptyChessboard();
         this.initRookOnBoard(0, 0, ChessColor.BLACK);
         this.initRookOnBoard(0, 7, ChessColor.BLACK);
@@ -258,17 +295,40 @@ public class Chessboard extends JComponent {
             for (int j = 0; j < 8; j++) {
                 chessComponents[i][j].repaint();
             }
-
+        }
             currentColor = ChessColor.WHITE;
             ColorLabel.setText("Round: White");
             label.setText(" ");
-        }
+
     }
 
     public void LoadChessBoard(List<String> str,int Steps) {
         StringBuilder sb=new StringBuilder(str.get(str.size()-1-Steps));
   //      String currentChessBoard=sb.substring(sb.length()-65,sb.length());
   //      StringBuilder sb2=new StringBuilder(currentChessBoard);
+        char[] Legal={'K','Q','R','B','N','P','_','k','q','r','b','n','p'};
+        if(!(sb.charAt(sb.length()-1)=='w'||sb.charAt(sb.length()-1)=='b')){
+            JOptionPane.showMessageDialog(this,"缺少行棋方\n错误编码： 103");
+            return;
+
+        }else if (sb.length()==65&&(sb.charAt(sb.length()-1)=='w'||sb.charAt(sb.length()-1)=='b')) {
+            for (int i = 0; i < sb.length()-1; i++) {
+                int exist = 0;
+                for (int j = 0; j < Legal.length; j++) {
+                    if (sb.charAt(i) == Legal[j]) {
+                        exist++;
+                    }
+                }
+                if (exist ==0) {
+                    JOptionPane.showMessageDialog(this,"棋子错误\n错误编码： 102");
+                    return;
+                }
+            }
+        }else if
+        (sb.length()!=65){
+            JOptionPane.showMessageDialog(this,"棋盘错误（非8*8）\n错误编码： 101");
+            return;
+        }
         List<String>chessboard=new ArrayList<>(8);
         for (int i = 0; i < 8; i++) {
             chessboard.add(sb.substring(8*i,8+8*i));
@@ -327,7 +387,7 @@ public class Chessboard extends JComponent {
             }
         }
         currentColor = chessboard.get(8).charAt(0) == 'w' ? ChessColor.WHITE : ChessColor.BLACK;
-        this.ColorLabel.setText("Round: Whit");
+//        this.ColorLabel.setText("Round: Whit");
 //        String color=currentColor==ChessColor.WHITE?"Round: White":"Round: Black";
 //        JLabel p=new JLabel();
 //        p.setText(color);
@@ -416,6 +476,22 @@ public class Chessboard extends JComponent {
             o.write(buff);
             o.flush();
             o.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        FileOutputStream o1 = null;
+        byte[] buff1 = new byte[]{};
+        try{
+            File file = new File("JumpBoard/JumpBoard.txt");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            buff1=Final.getBytes();
+            o1=new FileOutputStream(file,true);
+            o1.write(buff1);
+            o1.flush();
+            o1.close();
         }catch(Exception e){
             e.printStackTrace();
         }

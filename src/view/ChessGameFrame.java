@@ -105,6 +105,7 @@ public class ChessGameFrame extends JFrame {
         backbutton.setLocation(HEIGTH,HEIGTH/10+400);
         backbutton.setSize(200,60);
         backbutton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        backbutton.addActionListener(new BackButtonListener(this));
         add(backbutton);
 
         JButton takeBakeMovesbutton=new JButton("Take back a move");
@@ -120,6 +121,9 @@ public class ChessGameFrame extends JFrame {
 //        InputButton.setFont(new Font("Rockwell", Font.BOLD, 20));
 //        add(InputButton);
 //        InputButton.addActionListener(new );
+        MusicPlayer musicPlayer=new MusicPlayer("BGM.wav");
+        musicPlayer.play();
+        musicPlayer.setLoop(true);
     }
 
 

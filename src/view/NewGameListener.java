@@ -12,6 +12,7 @@ class NewGameListener implements ActionListener {
     public NewGameListener(JFrame loginFrame) {
 
         this.loginFrame = loginFrame;
+
     }
 
     private long len;
@@ -84,7 +85,30 @@ class NewGameListener implements ActionListener {
          }
 
 
-
+//         File f1=new File("JumpBoard/JumpBoard.txt");//指定文件
+//         FileOutputStream fos1= null;//创建输出流fos并以f为参数
+//         try {
+//             fos1 = new FileOutputStream(f1);
+//         } catch (FileNotFoundException ex) {
+//             ex.printStackTrace();
+//         }
+//         OutputStreamWriter osw1=new OutputStreamWriter(fos1);//创建字符输出流对象osw并以fos为参数
+//         BufferedWriter bw1=new BufferedWriter(osw1);//创建一个带缓冲的输出流对象bw，并以osw为参数
+//         try {
+//             bw.write("RNBQKBNRPPPPPPPP________________________________pppppppprnbqkbnrw\n");//使用bw写入一行文字，为字符串形式String
+//         } catch (IOException ex) {
+//             ex.printStackTrace();
+//         }
+////         try {
+////             bw.newLine();//换行
+////         } catch (IOException ex) {
+////             ex.printStackTrace();
+////         }
+//         try {
+//             bw.close();
+//         } catch (IOException ex) {
+//             ex.printStackTrace();
+//         }
 
      }
     }
