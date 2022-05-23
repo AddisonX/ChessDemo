@@ -2,6 +2,8 @@ package view;
 
 import controller.GameController;
 import model.ChessColor;
+import model.switchBackgroundListener;
+import model.switchBackgroundListener2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 public class ChessGameFrame extends JFrame {
     //    public final Dimension FRAME_SIZE ;
+    public JLabel Background;
     static JFrame fatherFrame;
 //private JFrame frame=new JFrame();
     private final int WIDTH;
@@ -49,7 +52,7 @@ public class ChessGameFrame extends JFrame {
 //        JLabel Background = new JLabel(icon1);
 //        add(Background);
 //        setVisible(true);
-        addBackgroundImage();//
+        addBackgroundImage1();//
 
     }
 
@@ -101,7 +104,7 @@ public class ChessGameFrame extends JFrame {
         add(button);
         button.addActionListener(new ResetButtonListener(chessboard));
 
-        JButton backbutton=new JButton("Back to menu");
+        JButton backbutton=new JButton("Restart Game");
         backbutton.setLocation(HEIGTH,HEIGTH/10+400);
         backbutton.setSize(200,60);
         backbutton.setFont(new Font("Rockwell", Font.BOLD, 20));
@@ -115,12 +118,20 @@ public class ChessGameFrame extends JFrame {
         add(takeBakeMovesbutton);
         takeBakeMovesbutton.addActionListener(new TakeBackMoveListener(chessboard));
 
-//        JButton InputButton=new JButton("Input ChessBoard");
-//        InputButton.setLocation((HEIGTH,HEIGTH/10+460);
-//        InputButton.setSize(200,60);
-//        InputButton.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(InputButton);
-//        InputButton.addActionListener(new );
+        JButton InputButton=new JButton("Switch Background1");
+        InputButton.setLocation(HEIGTH,HEIGTH/10+170);
+        InputButton.setSize(150,60);
+        InputButton.setFont(new Font("Rockwell", Font.BOLD, 10));
+        add(InputButton);
+        InputButton.addActionListener(new switchBackgroundListener(this));
+
+        JButton B2=new JButton("switch Background2");
+        B2.setLocation(HEIGTH,HEIGTH/10+90);
+        B2.setSize(150,60);
+        B2.setFont(new Font("Rockwell", Font.BOLD, 10));
+        add(B2);
+        B2.addActionListener(new switchBackgroundListener2(this));
+
         MusicPlayer musicPlayer=new MusicPlayer("BGM.wav");
         musicPlayer.play();
         musicPlayer.setLoop(true);
@@ -184,7 +195,15 @@ public class ChessGameFrame extends JFrame {
 
 
 
-    private void addBackgroundImage(){
+    public void addBackgroundImage1(){
+        ImageIcon icon1 =new ImageIcon("images/JP)PS}S~)}_HW20L)MC(2N7.png" );
+        Background = new JLabel(icon1);
+        Background.setBounds(0,0,1000,760);
+        add(Background);
+
+    }
+
+    private void addBackgroundImage2(){
         ImageIcon icon1 =new ImageIcon("images/JP)PS}S~)}_HW20L)MC(2N7.png" );
         JLabel Background = new JLabel(icon1);
         Background.setBounds(0,0,icon1.getIconWidth(), icon1.getIconHeight());
