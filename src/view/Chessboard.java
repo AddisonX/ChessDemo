@@ -395,6 +395,56 @@ for(int i=0;i<8;i++) {
 //        ColorLabel.repaint();
     }
 
+    public String SaveChessBoard(Chessboard chessboard) throws IOException {
+        String Final = "";
+
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 8; k++) {
+                if (chessboard.chessComponents[i][k] instanceof EmptySlotComponent) {
+                    Final = Final + "_";
+                }
+                if (chessboard.chessComponents[i][k] instanceof KingChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "K";
+                }
+                if (chessboard.chessComponents[i][k] instanceof KingChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "k";
+                }
+                if (chessboard.chessComponents[i][k] instanceof QueenChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "Q";
+                }
+                if (chessboard.chessComponents[i][k] instanceof QueenChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "q";
+                }
+                if (chessboard.chessComponents[i][k] instanceof RookChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "R";
+                }
+                if (chessboard.chessComponents[i][k] instanceof RookChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "r";
+                }
+                if (chessboard.chessComponents[i][k] instanceof BishopChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "B";
+                }
+                if (chessboard.chessComponents[i][k] instanceof BishopChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "b";
+                }
+                if (chessboard.chessComponents[i][k] instanceof KnightChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "N";
+                }
+                if (chessboard.chessComponents[i][k] instanceof KnightChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "n";
+                }
+                if (chessboard.chessComponents[i][k] instanceof PawnChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.BLACK) {
+                    Final = Final + "P";
+                }
+                if (chessboard.chessComponents[i][k] instanceof PawnChessComponent && chessboard.chessComponents[i][k].getChessColor() == ChessColor.WHITE) {
+                    Final = Final + "p";
+                }
+            }
+        }
+        String str = getCurrentColor() == ChessColor.WHITE ? "w" : "b";
+        Final = Final + str + "\n";
+        return Final;
+    }
 
     public void outputChessBoard(Chessboard chessboard) throws IOException {
         String Final = "";

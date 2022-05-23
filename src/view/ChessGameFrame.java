@@ -19,6 +19,7 @@ public class ChessGameFrame extends JFrame {
     //    public final Dimension FRAME_SIZE ;
     public JLabel Background;
     static JFrame fatherFrame;
+    static int loadinwrong=0;
 //private JFrame frame=new JFrame();
     private final int WIDTH;
     private final int HEIGTH;
@@ -63,6 +64,10 @@ public class ChessGameFrame extends JFrame {
     private void addChessboard() throws IOException {
 
         Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
+        if(loadinwrong==1){
+            JOptionPane.showMessageDialog(this, "读取文件格式有误\n错误代码：104");
+            loadinwrong=0;
+        }
         if(InputListener.count==0){
         chessboard.outputChessBoard(chessboard);}
         if (InputListener.count==1) {
@@ -135,6 +140,27 @@ public class ChessGameFrame extends JFrame {
         MusicPlayer musicPlayer=new MusicPlayer("BGM.wav");
         musicPlayer.play();
         musicPlayer.setLoop(true);
+
+        JButton buttonS = new JButton("保存");
+        buttonS.addActionListener((e) -> JOptionPane.showMessageDialog(this, "保存成功！"));
+        buttonS.setLocation(HEIGTH, HEIGTH / 10+550);
+        buttonS.setSize(160, 48);
+        buttonS.setFont(new Font("Rockwell", Font.BOLD, 16));
+        add(buttonS);
+        buttonS.addActionListener(e -> {
+
+            File file = new File("棋谱/棋谱.txt");
+            try {
+                FileOutputStream fos1=new FileOutputStream(file);
+                OutputStreamWriter dos1=new OutputStreamWriter(fos1);
+                dos1.write(String.valueOf(chessboard.SaveChessBoard(chessboard)));
+                dos1.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
     }
 
 

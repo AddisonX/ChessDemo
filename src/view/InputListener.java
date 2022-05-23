@@ -8,8 +8,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class InputListener implements ActionListener {
+public class InputListener extends Component implements ActionListener {
     private Chessboard chessboard;
     JFrame loginFrame = new JFrame();
 
@@ -48,6 +49,24 @@ public class InputListener implements ActionListener {
             File selectedFile = fileChooser.getSelectedFile();
             System.out.println("we selected: " + selectedFile);
             InputStream fis = null;
+
+//            String fileName = "ChessData.txt";
+//            Stream<String> lines = null;
+//            try {
+//                lines = Files.lines(Paths.get(fileName));
+//
+//            }catch(IOException ex){
+//                ChessGameFrame.loadinwrong=1;
+//                count=0;
+//                return;
+//            }
+            String suffixName = selectedFile.toString().substring(selectedFile.toString().lastIndexOf("."));
+            if (!(selectedFile.toString().endsWith(".txt"))){
+                ChessGameFrame.loadinwrong=1;
+                count=0;
+                return;
+            }
+
             try {
                 fis = new FileInputStream(selectedFile);
             } catch (FileNotFoundException ex) {
