@@ -80,6 +80,7 @@ public class ChessGameFrame extends JFrame {
             List<String> results = Files.readAllLines(Paths.get("JumpBoard/JumpBoard.txt"));
 
             chessboard.LoadChessBoard(results,1);
+
 //            if (chessboard.currentColor == ChessColor.WHITE) chessboard.ColorLabel.setText("Round: White");
 //            else chessboard.ColorLabel.setText("Round: Black");
             chessboard.repaint();
@@ -94,6 +95,8 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         chessboard.setColorLabel(statusLabel);
+        if (chessboard.currentColor == ChessColor.WHITE) statusLabel.setText("Round: White");
+        else statusLabel.setText("Round: Black");
         add(statusLabel);
 
         JLabel chessmateLabel = new JLabel(" ");
