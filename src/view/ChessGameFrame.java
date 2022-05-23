@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class ChessGameFrame extends JFrame {
     //    public final Dimension FRAME_SIZE ;
+    public MusicPlayer musicPlayer;
     public JLabel Background;
     static JFrame fatherFrame;
     static int loadinwrong=0;
@@ -119,7 +120,7 @@ public class ChessGameFrame extends JFrame {
         backbutton.setLocation(HEIGTH,HEIGTH/10+400);
         backbutton.setSize(200,60);
         backbutton.setFont(new Font("Rockwell", Font.BOLD, 20));
-        backbutton.addActionListener(new BackButtonListener(this));
+        backbutton.addActionListener(new BackButtonListener(this,this));
         add(backbutton);
 
         JButton takeBakeMovesbutton=new JButton("Take back a move");
@@ -143,7 +144,7 @@ public class ChessGameFrame extends JFrame {
         add(B2);
         B2.addActionListener(new switchBackgroundListener2(this));
 
-        MusicPlayer musicPlayer=new MusicPlayer("BGM.wav");
+        musicPlayer=new MusicPlayer("BGM.wav");
         musicPlayer.play();
         musicPlayer.setLoop(true);
 

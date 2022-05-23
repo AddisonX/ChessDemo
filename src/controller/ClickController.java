@@ -112,7 +112,8 @@ public class ClickController {
                 first = null;
 
 
-
+                MusicPlayer musicPlayer=new MusicPlayer("ycxew-tk4v6.wav");
+                musicPlayer.play();
             }else if(chessComponent.getChessColor()== chessboard.getCurrentColor()){//选中其他同色棋子
 
                 first.setSelected(false);
@@ -134,8 +135,7 @@ public class ClickController {
                 first=chessComponent;
                 first.repaint();
             }
-            MusicPlayer musicPlayer=new MusicPlayer("ycxew-tk4v6.wav");
-            musicPlayer.play();
+
         }
     }
 
