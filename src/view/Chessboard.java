@@ -27,7 +27,7 @@ public class Chessboard extends JComponent {
     public ChessColor currentColor;
     public final ClickController clickController;
     public final int CHESS_SIZE;
-    private JLabel ColorLabel=new JLabel();
+    public JLabel ColorLabel=new JLabel();
     public JLabel label;
     public int FileSource;
 
@@ -387,6 +387,8 @@ for(int i=0;i<8;i++) {
             }
         }
         currentColor = chessboard.get(8).charAt(0) == 'w' ? ChessColor.WHITE : ChessColor.BLACK;
+//        if (currentColor == ChessColor.WHITE) ChessGameFrame.statusLabel.setText("Round: White");
+//        else ChessGameFrame.statusLabel.setText("Round: Black");
 //        this.ColorLabel.setText("Round: Whit");
 //        String color=currentColor==ChessColor.WHITE?"Round: White":"Round: Black";
 //        JLabel p=new JLabel();
